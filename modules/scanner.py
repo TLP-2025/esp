@@ -1,4 +1,4 @@
-import ply.lex as _lex
+from modules import ply_lex as _lex
 from modules import lexer_rules as _rules
 from modules import state
 

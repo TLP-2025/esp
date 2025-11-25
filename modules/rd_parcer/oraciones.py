@@ -1,4 +1,4 @@
-from ply.lex import LexToken
+from modules.ply_lex import LexToken
 import modules.rd_parcer.sujeto as Sujeto
 import modules.rd_parcer.verbo as Verbo
 import modules.rd_parcer.complemento as Complemento

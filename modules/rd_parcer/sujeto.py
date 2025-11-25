@@ -1,4 +1,4 @@
-from ply.lex import LexToken
+from modules.ply_lex import LexToken
 
 class Sujeto(): ...
 
