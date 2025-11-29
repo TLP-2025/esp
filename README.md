@@ -21,3 +21,33 @@ adverbios   -> "ADVERBIO"+
 complemento -> "PREPOSICION" sujeto
 ```
 
+
+
+## Impresión del árbol de análisis con librería (`rich`)
+
+Primero debes instalar (una sola vez) en tu entorno de Python:
+
+```bash
+pip install rich
+```
+
+Al ejecutar el programa, si la oración es aceptada, se imprimirá el árbol
+usando `rich.tree.Tree`, por ejemplo:
+
+```bash
+python esp.py
+esp> Los niños comen manzanas rápidamente en la ciudad.
+Oración(es) aceptada(s).
+Árbol de análisis sintáctico <list>
+└── [0]: OracionSVO
+    ├── sujeto: Sujetos
+    │   └── sujetos[0]: SujetoDet
+    ├── verbo: Verbo
+    │   ├── negacion: None
+    │   ├── verbo: VERBO(vrs:comen)
+    │   ├── objeto: Sujetos
+    │   └── adverbio[0]: ADVERBIO(adv:rápidamente)
+    └── complemento: ComplementoPre
+```
+
+El formato exacto puede variar un poco según el tamaño de la consola.

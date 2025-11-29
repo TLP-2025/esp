@@ -1,6 +1,7 @@
 import sys
 from modules import scanner, state, tokenizer
 from modules.rd_parcer.parser import RDParser
+from modules.tree_printer import print_tree
 
 
 def run(source: str):
@@ -23,7 +24,9 @@ def run(source: str):
         return
 
     # Si llegó hasta aquí, todo se parseó correctamente
-    print("Acceptado")
+    print("Oración(es) aceptada(s).")
+    # Imprimir el árbol de análisis sintáctico usando rich
+    print_tree(parrafo)
 
 
 def runPrompt():
