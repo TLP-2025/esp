@@ -1,10 +1,13 @@
 import sys
 from modules import scanner
+from modules import tokenizer
 from modules.rd_parcer.parser import RDParser
 from modules import state
 
 
 def run(source:str):
+    # Paso previo: tokenizar cada palabra si la frase no viene anotada
+    source = tokenizer.annotate_source(source)
     tokens = list(scanner.tokens(source))
     ## Print Tokens
     # for t in tokens:
@@ -42,4 +45,3 @@ match len(sys.argv)-1:
     case _:
         sys.exit(64)
         
-
