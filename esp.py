@@ -1,47 +1,57 @@
 import sys
-from modules import scanner
-from modules import tokenizer
+from modules import scanner, state, tokenizer
 from modules.rd_parcer.parser import RDParser
-from modules import state
 
 
-def run(source:str):
-    # Paso previo: tokenizar cada palabra si la frase no viene anotada
-    source = tokenizer.annotate_source(source)
-    tokens = list(scanner.tokens(source))
-    ## Print Tokens
-    # for t in tokens:
-    #     print(t)
+def run(source: str):
+    # Reiniciar estado de error
+    state.hadError = False
+
+    # Paso previo: tokenizar automáticamente si la frase no viene anotada
+    annotated = tokenizer.annotate_source(source)
+
+    tokens = list(scanner.tokens(annotated))
 
     parser = RDParser(tokens)
-    parrafo = parser.parse()
+    try:
+        parrafo = parser.parse()
+    except Exception:
+        # El propio parser ya reporta el error vía state.parseError
+        return
 
-    if (state.hadError): return
+    if state.hadError:
+        return
 
-    # TODO: Print parse tree
-    print ("Acceptado")
+    # Si llegó hasta aquí, todo se parseó correctamente
+    print("Acceptado")
 
 
 def runPrompt():
-    while (True):
-        try:
-            line = input("esp> ")
-            if (line == ""): continue
-        except EOFError: break
-        except KeyboardInterrupt: break
-        run(line)
-        state.hadError = False
+    try:
+        while True:
+            try:
+                line = input("esp> ")
+            except EOFError:
+                break
 
-def runFile(path):
+            if not line.strip():
+                continue
+
+            run(line)
+    except KeyboardInterrupt:
+        print()
+
+
+def runFile(path: str):
     with open(path, 'r', encoding='utf-8') as file:
         run(file.read())
 
-match len(sys.argv)-1:
-    case 0:
+
+if __name__ == "__main__":
+    args = sys.argv[1:]
+    if len(args) == 0:
         runPrompt()
-    case 1:
-        path = sys.argv[1]
-        runFile(path)
-    case _:
+    elif len(args) == 1:
+        runFile(args[0])
+    else:
         sys.exit(64)
-        

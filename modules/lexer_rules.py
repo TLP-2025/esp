@@ -6,48 +6,46 @@ class Token(str, Enum):
     ADJETIVO = 'ADJETIVO'
     NOMBRE_PROPIO = 'NOMBRE_PROPIO'
     PREPOSICION = 'PREPOSICION'
-    VERBO_SINGULAR = 'VERBO_SINGULAR'
-    VERBO_PLURAL = 'VERBO_PLURAL'
+    VERBO = 'VERBO'
     NO = 'NO'
     Y = 'Y'
+    ADVERBIO = 'ADVERBIO'
     PUNTO = 'PUNTO'
-
-
-    #END
     EOF = 'EOF'
 
-# Mapping for lex library
-tokens = tuple(map(lambda name: Token[name].value, Token._member_names_,))
+
+# Lista de nombres de tokens que usa PLY
+tokens = tuple(t.value for t in Token)
 
 
-# Regular expression rules
-## Single-character tokens.
+# Reglas de expresiones regulares para los tokens
 t_DETERMINANTE = r'det:\w+'
 t_SUSTANTIVO = r'sus:\w+'
 t_ADJETIVO = r'adj:\w+'
 t_NOMBRE_PROPIO = r'nom:\w+'
 t_PREPOSICION = r'pre:\w+'
-t_VERBO_SINGULAR = r'vrs:\w+'
-t_VERBO_PLURAL = r'vrp:\w+'
+t_VERBO = r'vrs:\w+'
+t_ADVERBIO = r'adv:\w+'
 
 t_NO = r'no'
 t_Y = r'y'
 t_PUNTO = r'\.'
 
 
-
-# Define a rule so we can track line numbers
+# Regla para contar líneas nuevas
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
 
-# A string containing ignored characters (spaces and tabs)
+# Caracteres ignorados (espacios, comas, tabulaciones, etc.)
 t_ignore  = ' ,:;?!\t'  
+
 
 def onCharError(char, line): ...
 
-# Error handling rule
+
+# Manejo de errores léxicos
 def t_error(t):
     onCharError(t.value[0], t.lexer.lineno)
     t.lexer.skip(1)

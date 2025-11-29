@@ -2,18 +2,22 @@
 Parser descendente recursivo para un subconjunto del idioma español
 
 ## Gramática del lenguaje
-```
+
+```text
 parrafo     -> oracion* EOF
 oracion     -> oracion_svo
-oracion_svo -> sujetos verbo complemento? .
+oracion_svo -> sujetos verbo adverbios? complemento? .
 
-sujetos     -> sujeto ("y" sujeto)*
+sujetos     -> sujeto ("Y" sujeto)*
 sujeto      -> sujeto_det | nombre
-nombre      -> "nombre_propio" "adjetivo"?
-sujeto_det  -> "determinante"? "sustantivo" "adjetivo"?
+nombre      -> "NOMBRE_PROPIO" "ADJETIVO"?
+sujeto_det  -> "DETERMINANTE"? "SUSTANTIVO" "ADJETIVO"?
 
-verbo       -> "no"? ("v_singular" | "v_plural") objeto?
-objeto      -> sujetos  
+verbo       -> "NO"? "VERBO" objeto?
+objeto      -> sujetos
 
-complemento -> "preposicion" sujeto
+adverbios   -> "ADVERBIO"+
+
+complemento -> "PREPOSICION" sujeto
 ```
+
