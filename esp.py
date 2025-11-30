@@ -2,6 +2,7 @@ import sys
 from modules import scanner
 from modules.rd_parcer.parser import RDParser
 from modules import state
+from modules.rd_parcer.printer import print_esp
 
 
 def run(source:str):
@@ -15,7 +16,7 @@ def run(source:str):
 
     if (state.hadError): return
 
-    # TODO: Print parse tree
+    print_esp(parrafo)
     print ("Acceptado")
 
 
