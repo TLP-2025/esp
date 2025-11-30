@@ -103,7 +103,12 @@ class RDParser:
             case Token.DETERMINANTE | Token.NOMBRE_PROPIO | Token.SUSTANTIVO:
                 objeto = self.sujetos()
         
-        return Verbo.Verbo(negacion, verb, objeto)
+        # adverbio opcional
+        adverbio: LexToken = None
+        if self.match(Token.ADVERBIO):
+            adverbio = self.previous()
+        
+        return Verbo.Verbo(negacion, verb, objeto, adverbio)
 
         
 
