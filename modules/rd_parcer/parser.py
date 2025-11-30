@@ -94,10 +94,7 @@ class RDParser:
         if (self.match(Token.NO)):
             negacion = self.previous()
         
-        if (not self.match(Token.VERBO_SINGULAR,Token.VERBO_PLURAL)):
-            raise _error(self.peek(), "Se esperaba un verbo")
-        
-        verb: LexToken = self.previous()
+        verb = self.consume(Token.VERBO, "Se esperaba un verbo.")
 
         
         # objeto opcional

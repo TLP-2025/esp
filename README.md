@@ -12,7 +12,7 @@ sujeto      -> sujeto_det | nombre
 nombre      -> "nombre_propio" "adjetivo"?
 sujeto_det  -> "determinante"? "sustantivo" "adjetivo"?
 
-verbo       -> "no"? ("v_singular" | "v_plural") objeto?
+verbo       -> "no"? "verbo" objeto?
 objeto      -> sujetos  
 
 complemento -> "preposicion" sujeto
