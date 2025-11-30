@@ -3,10 +3,12 @@ from modules import scanner
 from modules.rd_parcer.parser import RDParser
 from modules import state
 from modules.rd_parcer.printer import print_esp
+from modules.tokenizer import annotate_source
 
 
 def run(source:str):
-    tokens = list(scanner.tokens(source))
+    prefixed = annotate_source(source)
+    tokens = list(scanner.tokens(prefixed))
     ## Print Tokens
     # for t in tokens:
     #     print(t)
